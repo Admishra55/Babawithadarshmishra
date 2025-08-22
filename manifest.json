@@ -1,0 +1,9 @@
+{
+  "name": "BabaturantnathMandir",
+  "short_name": "Mandir",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#dc2626",
+  "icons": []
+}

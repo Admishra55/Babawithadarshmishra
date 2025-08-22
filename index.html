@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <title>🕉 BabaturantnathMandir</title>
+  
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="assets/css/style.css" />
+
+</head>
+<body class="theme-light color-red">
+  <div id="loader">
+    <div class="logo">🕉</div>
+    <h1>BabaturantnathMandir</h1>
+    <p>भव्य मार्गदर्शन • स्वागत है</p>
+  </div>
+
+  
+<nav class="navbar">
+  <div class="nav-container">
+    <span class="brand">🕉 BabaturantnathMandir</span>
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="aarti.html">🙏 आरती</a></li>
+      <li><a href="bhajan.html">🎶 भजन</a></li>
+      <li><a href="donation.html">💰 दान</a></li>
+      <li><a href="community.html">👥 समुदाय</a></li>
+      <li><a href="live.html">📺 Live</a></li>
+      <li><a href="panchang.html">🗓️ पंचांग</a></li>
+      <li><a href="about.html">ℹ️ About</a></li>
+    </ul>
+  </div>
+</nav>
+
+
+  <main>
+    <section class="card">
+      <h3>स्वागत है</h3>
+      <p>यह मंदिर ऐप ऑफलाइन भी काम करता है। ऊपर मेनू से आरती/भजन पढ़ें, दान करें और समुदाय में संदेश पोस्ट करें।</p>
+      <div class="theme-controls">
+        <label>Mode:
+          <select id="modeSelect">
+            <option value="theme-light">Light</option>
+            <option value="theme-dark">Dark</option>
+          </select>
+        </label>
+        <label>Color:
+          <select id="colorSelect">
+            <option value="color-red">Red</option>
+            <option value="color-blue">Blue</option>
+            <option value="color-yellow">Yellow</option>
+          </select>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/sw-register.js"></script>
+</body>
+</html>
