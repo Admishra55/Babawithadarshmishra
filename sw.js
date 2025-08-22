@@ -1,0 +1,5 @@
+const CACHE="mandir-cache-v6";
+const ASSETS=["./","./index.html","./assets/css/style.css","./assets/js/main.js","./assets/js/aarti.js","./assets/js/bhajan.js","./assets/js/donation.js","./assets/js/community.js","./assets/js/panchang.js","./assets/js/sw-register.js","./data/aarti.json","./data/bhajan.json","./data/panchang_2025.json","./manifest.webmanifest"];
+self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)))});
+self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))) });
+self.addEventListener("fetch",e=>{ e.respondWith(caches.match(e.request).then(r=> r || fetch(e.request).then(res=>{ const copy=res.clone(); caches.open(CACHE).then(c=>c.put(e.request,copy)); return res; }).catch(()=>caches.match("./index.html")))); });

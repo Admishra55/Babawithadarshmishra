@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>मंदिर ऐप</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="theme-color" content="#ffcc66">
+</head>
+<body>
+  <header>
+    <h1>🙏 मंदिर ऐप</h1>
+    <nav class="top-nav">
+      <button data-page="home">होम</button>
+      <button data-page="aarti">आरती</button>
+      <button data-page="bhajan">भजन</button>
+      <button data-page="panchang">पंचांग</button>
+      <button data-page="community">कम्युनिटी</button>
+      <button data-page="donation">दान</button>
+      <button data-page="settings">सेटिंग्स</button>
+    </nav>
+    <div id="color-preview" class="color-preview"></div>
+  </header>
+
+  <main id="content" class="container"></main>
+
+  <footer>
+    <small>© 2025 Mandir App • PWA • Offline</small>
+  </footer>
+
+  <!-- JS Files -->
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/aarti.js"></script>
+  <script src="assets/js/bhajan.js"></script>
+  <script src="assets/js/donation.js"></"></script>
+  <script src="assets/js/community.js"></script>
+  <script src="assets/js/panchang.js"></script>
+  <script src="assets/js/sw-register.js"></script>
+</body>
+</html>
