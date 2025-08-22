@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>BabaturantnathMandir</title>
+  <meta name="theme-color" content="#fbc02d">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader">
+    <div style="font-size:64px;line-height:1">🕉</div>
+    <div style="margin-top:8px;font-weight:700">BabaturantnathMandir</div>
+    <div style="margin-top:4px;color:#666">भव्य मार्गदर्शन • स्वागत है</div>
+  </div>
+
+  <header>
+    <div class="brandbar">
+      <button id="hamburger" aria-label="menu">☰</button>
+      <div class="brand"><span class="om">🕉</span><span class="title">BabaturantnathMandir</span></div>
+    </div>
+    <nav class="top-nav" id="topNav">
+      <button data-page="home">होम</button>
+      <button data-page="aarti">आरती</button>
+      <button data-page="bhajan">भजन</button>
+      <button data-page="panchang">पंचांग</button>
+      <button data-page="community">कम्युनिटी</button>
+      <button data-page="donation">दान</button>
+      <button data-page="settings">सेटिंग्स</button>
+    </nav>
+    <div id="color-preview" class="color-preview"></div>
+  </header>
+
+  <main id="content" class="container"></main>
+  <footer><small>© 2025 BabaturantnathMandir • PWA • Offline</small></footer>
+
+  <script src="assets/js/theme.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/aarti.js"></script>
+  <script src="assets/js/bhajan.js"></script>
+  <script src="assets/js/donation.js"></script>
+  <script src="assets/js/community.js"></script>
+  <script src="assets/js/panchang.js"></script>
+  <script src="assets/js/sw-register.js"></script>
+</body>
+</html>
