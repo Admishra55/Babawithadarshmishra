@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Media • BabaturantnathMandir</title>
+  <link rel="manifest" href="manifest.json"/>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Noto Sans',sans-serif;margin:0;background:#101418;color:#eaeaea}
+    header{display:flex;align-items:center;gap:12px;padding:12px 16px;position:sticky;top:0;background:#0c0f13;border-bottom:1px solid #1e2630;z-index:5}
+    .om{font-size:22px} .title{font-weight:700}
+    main{max-width:1000px;margin:18px auto;padding:0 14px}
+    .card{background:#0f151d;border:1px solid #1e2630;border-radius:16px;padding:14px;margin:12px 0;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+    .row{display:flex;flex-wrap:wrap;gap:12px}
+    .col{flex:1 1 320px}
+    .muted{opacity:.8}
+    button,.btn{cursor:pointer;border:1px solid #2a3340;background:#16202b;color:#fff;border-radius:12px;padding:10px 12px}
+    input[type="file"]{display:block;margin-top:8px}
+    .pill{display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid #334151;background:#151e29}
+    .list{margin:10px 0;padding-left:18px}
+    .item{margin:6px 0}
+    audio{width:100%;margin-top:8px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+    .thumb{border:1px solid #2b3440;border-radius:12px;overflow:hidden;background:#0b1118}
+    .thumb > img{width:100%;display:block}
+    .thumb > .pdf{display:block;width:100%;height:240px;border:0}
+    .lang-toggle{margin-left:auto}
+    .hint{font-size:12px;opacity:.7}
+    .ok{color:#9bffb4}.warn{color:#ffd479}
+    a{color:#8cc7ff}
+  </style>
+</head>
+<body>
+<header>
+  <div class="om">🕉</div>
+  <div class="title">BabaturantnathMandir • Media</div>
+  <div class="lang-toggle">
+    <button id="btnHi" class="pill">हिंदी</button>
+    <button id="btnEn" class="pill">English</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- LANGUAGE BLOCKS -->
+  <section id="hi" class="lang card" style="display:none">
+    <h2>🎧 ऑडियो आरती / भजन</h2>
+    <p class="muted">assets/audio/ में पड़ी <b>aarti_001.mp3 … aarti_020.mp3</b> फाइलें मिलें तो अपने-आप playlist बनेगी। नीचे से आप अपने फोन की MP3 भी जोड़ सकते हैं।</p>
+    <div class="row">
+      <div class="col">
+        <div class="pill">ऑटो Playlist</div>
+        <ol id="autoList_hi" class="list"></ol>
+      </div>
+      <div class="col">
+        <div class="pill">मेरे फ़ोन से जोड़ें</div>
+        <input id="pickAudio" type="file" accept="audio/mpeg,audio/mp3" multiple>
+        <ol id="userList_hi" class="list"></ol>
+      </div>
+    </div>
+    <audio id="player" controls preload="none"></audio>
+    <p class="hint">👉 किसी नाम पर टैप करें, वह ट्रैक चल जाएगा।</p>
+  </section>
+
+  <section id="en" class="lang card" style="display:none">
+    <h2>🎧 Audio Aarti / Bhajan</h2>
+    <p class="muted">If files like <b>aarti_001.mp3 … aarti_020.mp3</b> exist inside <code>assets/audio/</code>, a playlist is built automatically. You can also add MP3 from your phone below.</p>
+    <div class="row">
+      <div class="col">
+        <div class="pill">Auto Playlist</div>
+        <ol id="autoList_en" class="list"></ol>
+      </div>
+      <div class="col">
+        <div class="pill">Add from device</div>
+        <input id="pickAudio_en" type="file" accept="audio/mpeg,audio/mp3" multiple>
+        <ol id="userList_en" class="list"></ol>
+      </div>
+    </div>
+    <audio id="player_en" controls preload="none"></audio>
+    <p class="hint">👉 Tap a name to start playing.</p>
+  </section>
+
+  <section class="card">
+    <h2 id="commTitle">🗂️ Community Upload (PDF + Photos)</h2>
+    <p id="commNote" class="muted">
+      लोकल सेव (IndexedDB) — कोई सर्वर अपलोड नहीं। यह डेटा इस डिवाइस/ब्राउज़र तक सीमित है।
+    </p>
+    <div class="row">
+      <div class="col">
+        <label class="pill" id="lblAdd">फाइल चुनें (PDF/Images)</label>
+        <input id="pickPost" type="file" accept="application/pdf,image/*" multiple>
+        <button id="btnSave">सेव करें / Save</button>
+        <div class="hint" id="sizeHint">Tip: बड़े PDF फोन पर धीरे खुल सकते हैं।</div>
+      </div>
+      <div class="col">
+        <div class="pill" id="lblPosts">मेरे पोस्ट</div>
+        <div id="gallery" class="grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>ℹ️ Notes</h3>
+    <ul>
+      <li>Audio playlist: <span class="ok">Works offline</span>. Local MP3 via picker also works (object URL).</li>
+      <li>Community uploads: Saved to <code>IndexedDB</code> locally. <span class="warn">Clearing site data</span> will remove them.</li>
+      <li>Auto language detect (Hindi if device language starts with <code>hi</code>).</li>
+    </ul>
+  </section>
+
+</main>
+
+<script>
+/* ============ Language ============ */
+function setLang(code){
+  document.querySelectorAll('.lang').forEach(x=>x.style.display='none');
+  if(code==='hi'){ document.getElementById('hi').style.display='block'; }
+  else{ document.getElementById('en').style.display='block'; }
+  localStorage.setItem('app.lang', code);
+  // also switch labels
+  document.getElementById('commTitle').textContent = (code==='hi') ? '🗂️ समुदाय अपलोड (PDF + Photos)': '🗂️ Community Upload (PDF + Photos)';
+  document.getElementById('commNote').textContent  = (code==='hi') ? 'लोकल सेव (IndexedDB) — कोई सर्वर अपलोड नहीं। यह डेटा इस डिवाइस/ब्राउज़र तक सीमित है।' : 'Saved locally (IndexedDB). No server upload; data stays on this device/browser.';
+  document.getElementById('lblAdd').textContent    = (code==='hi') ? 'फाइल चुनें (PDF/Images)' : 'Pick files (PDF/Images)';
+  document.getElementById('lblPosts').textContent  = (code==='hi') ? 'मेरे पोस्ट' : 'My Posts';
+  document.getElementById('sizeHint').textContent  = (code==='hi') ? 'नोट: बड़े PDF मोबाइल पर धीरे खुल सकते हैं।' : 'Tip: Large PDFs may open slowly on mobile.';
+}
+(function initLang(){
+  const saved = localStorage.getItem('app.lang');
+  if(saved){ setLang(saved); }
+  else {
+    const l = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    setLang(l.startsWith('hi') ? 'hi' : 'en');
+  }
+  document.getElementById('btnHi').onclick=()=>setLang('hi');
+  document.getElementById('btnEn').onclick=()=>setLang('en');
+})();
+
+/* ============ AUDIO ============ */
+const autoTargets = [
+  {path:'assets/audio/', prefix:'aarti_', count:20},   // will probe aarti_001..020.mp3
+  {path:'assets/audio/', prefix:'bhajan_', count:20},  // optional: bhajan_001..020.mp3 (if you add later)
+];
+async function probeFiles(){
+  const found = [];
+  for(const tg of autoTargets){
+    for(let i=1;i<=tg.count;i++){
+      const num = String(i).padStart(3,'0');
+      const url = `${tg.path}${tg.prefix}${num}.mp3`;
+      try{
+        const res = await fetch(url,{method:'HEAD',cache:'no-cache'});
+        if(res.ok){ found.push({title:`${tg.prefix}${num}.mp3`, url}); }
+      }catch(e){/* ignore */ }
+    }
+  }
+  return found;
+}
+function renderAuto(listEl, items, player){
+  listEl.innerHTML = '';
+  if(items.length===0){
+    const li=document.createElement('li'); li.className='item muted';
+    li.textContent='(कोई प्री-लोडेड MP3 नहीं मिला / No preloaded MP3 found)';
+    listEl.appendChild(li); return;
+  }
+  items.forEach((it,idx)=>{
+    const li=document.createElement('li'); li.className='item';
+    const a=document.createElement('a'); a.href='#'; a.textContent=`${idx+1}. ${it.title}`;
+    a.onclick=(e)=>{e.preventDefault(); player.src=it.url; player.play();};
+    li.appendChild(a); listEl.appendChild(li);
+  });
+}
+function hookUserPicker(inputEl, listEl, player){
+  inputEl.addEventListener('change', ()=>{
+    listEl.innerHTML='';
+    Array.from(inputEl.files||[]).forEach((f,idx)=>{
+      const url = URL.createObjectURL(f);
+      const li=document.createElement('li'); li.className='item';
+      const a=document.createElement('a'); a.href='#'; a.textContent=`${idx+1}. ${f.name}`;
+      a.onclick=(e)=>{e.preventDefault(); player.src=url; player.play();};
+      li.appendChild(a); listEl.appendChild(li);
+    });
+  });
+}
+(async function initAudio(){
+  // Hindi block
+  const autoHi = document.getElementById('autoList_hi');
+  const userHi = document.getElementById('userList_hi');
+  const pHi    = document.getElementById('player');
+  renderAuto(autoHi, await probeFiles(), pHi);
+  hookUserPicker(document.getElementById('pickAudio'), userHi, pHi);
+
+  // English block
+  const autoEn = document.getElementById('autoList_en');
+  const userEn = document.getElementById('userList_en');
+  const pEn    = document.getElementById('player_en');
+  renderAuto(autoEn, await probeFiles(), pEn);
+  hookUserPicker(document.getElementById('pickAudio_en'), userEn, pEn);
+})();
+
+/* ============ COMMUNITY UPLOAD (IndexedDB) ============ */
+const DB_NAME='btm_media_db', STORE='posts';
+function idb(){
+  return new Promise((resolve,reject)=>{
+    const req = indexedDB.open(DB_NAME,1);
+    req.onupgradeneeded = ()=> req.result.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});
+    req.onsuccess = ()=> resolve(req.result);
+    req.onerror = ()=> reject(req.error);
+  });
+}
+async function savePosts(files){
+  const db = await idb();
+  const tx = db.transaction(STORE,'readwrite');
+  const st = tx.objectStore(STORE);
+  for(const f of files){
+    const url = URL.createObjectURL(f);
+    await new Promise((res,rej)=>{
+      st.add({ts:Date.now(), name:f.name, type:f.type, url});
+      tx.oncomplete=()=>res(); tx.onerror=()=>rej(tx.error);
+    });
+  }
+}
+async function listPosts(){
+  const db = await idb();
+  const tx = db.transaction(STORE,'readonly');
+  const st = tx.objectStore(STORE);
+  return await new Promise((res,rej)=>{
+    const out=[]; const curReq = st.openCursor(null,'prev');
+    curReq.onsuccess = e=>{
+      const c=e.target.result; if(c){ out.push(c.value); c.continue(); } else res(out);
+    };
+    curReq.onerror = ()=>rej(curReq.error);
+  });
+}
+function renderGallery(items){
+  const wrap = document.getElementById('gallery');
+  wrap.innerHTML='';
+  items.forEach(it=>{
+    const box=document.createElement('div'); box.className='thumb';
+    if(it.type.startsWith('image/')){
+      const img=document.createElement('img'); img.src=it.url; img.alt=it.name;
+      box.appendChild(img);
+    }else if(it.type==='application/pdf'){
+      const ifr=document.createElement('iframe'); ifr.className='pdf'; ifr.src=it.url; box.appendChild(ifr);
+    }else{
+      const p=document.createElement('div'); p.style.padding='10px'; p.textContent=it.name;
+      box.appendChild(p);
+    }
+    wrap.appendChild(box);
+  });
+}
+(async function initCommunity(){
+  document.getElementById('btnSave').onclick = async ()=>{
+    const inp = document.getElementById('pickPost');
+    if(!inp.files || inp.files.length===0) return alert('फ़ाइल चुनें / Pick files');
+    await savePosts(inp.files);
+    renderGallery(await listPosts());
+    inp.value='';
+  };
+  renderGallery(await listPosts());
+})();
+</script>
+
+</body>
+</html>
