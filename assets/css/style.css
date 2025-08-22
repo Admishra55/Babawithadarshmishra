@@ -1,0 +1,39 @@
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+#loader{display:flex;flex-direction:column;align-items:center;justify-content:center;height:40vh;gap:.25rem}
+#loader .logo{font-size:56px}
+.navbar{background:#ff9933;color:#fff}
+.nav-container{display:flex;justify-content:space-between;align-items:center;padding:.5rem 1rem}
+.brand{font-weight:700}
+.nav-links{list-style:none;margin:0;padding:0;display:flex}
+.nav-links li{margin:0 .5rem}
+.nav-links a{color:#fff;text-decoration:none;font-weight:600}
+.menu-toggle{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer}
+@media (max-width:768px){
+  .nav-links{display:none;flex-direction:column;padding:10px}
+  .nav-links.show{display:flex}
+  .nav-links li{margin:10px 0}
+  .menu-toggle{display:block}
+}
+
+header.sub{position:sticky;top:0;background:var(--bg);z-index:5;border-bottom:1px solid var(--line)}
+main{padding:1rem;max-width:900px;margin:auto}
+.card{background:var(--card);padding:1rem;border:1px solid var(--line);border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin:.75rem auto}
+.form label{display:flex;flex-direction:column;gap:.25rem;margin:.5rem 0}
+.form button{padding:.5rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--accent);color:white}
+.list .item{padding:.75rem;border-bottom:1px dashed var(--line)}
+.list .item h4{margin:.25rem 0}
+.list .item pre{white-space:pre-wrap;line-height:1.6}
+.videoWrap{aspect-ratio:16/9}
+.videoWrap iframe{width:100%;height:100%}
+.admin{position:fixed;bottom:8px;right:8px;background:var(--card);padding:.5rem;border:1px solid var(--line);border-radius:10px}
+#searchWrap{display:flex;justify-content:center}
+#searchWrap input{padding:.5rem 1rem;border:1px solid var(--line);border-radius:10px;min-width:260px}
+
+/* Themes */
+:root{--bg:#fff;--fg:#111;--line:#e5e7eb;--card:#fff;--accent:#c81e1e}
+.theme-dark{--bg:#0b1220;--fg:#e5e7eb;--line:#1f2937;--card:#0f172a}
+.color-red{--accent:#dc2626}
+.color-blue{--accent:#2563eb}
+.color-yellow{--accent:#ca8a04}
+body{background:var(--bg);color:var(--fg)}
+a{color:var(--accent)}
